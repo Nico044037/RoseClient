@@ -16,7 +16,6 @@
     :root {
       --background: #0c0911;
       --surface: #15101d;
-      --surface-light: #1e1529;
       --pink: #ff72c6;
       --purple: #bd73ff;
       --text: #fbf5ff;
@@ -47,16 +46,11 @@
       text-decoration: none;
     }
 
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
     .background-glow {
       position: fixed;
       inset: 0;
-      pointer-events: none;
       overflow: hidden;
+      pointer-events: none;
       z-index: -1;
     }
 
@@ -223,10 +217,7 @@
       border-radius: 12px;
       font-size: 15px;
       font-weight: 750;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .button:hover {
@@ -263,7 +254,7 @@
       font-size: 12px;
     }
 
-    /* Preview */
+    /* Launcher preview */
 
     .preview {
       max-width: 900px;
@@ -276,9 +267,7 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
       background: rgba(21, 16, 29, 0.9);
-      box-shadow:
-        0 35px 100px rgba(0, 0, 0, 0.35),
-        0 0 80px rgba(202, 100, 255, 0.06);
+      box-shadow: 0 35px 100px rgba(0, 0, 0, 0.35);
       transform: perspective(1200px) rotateX(2deg);
     }
 
@@ -442,16 +431,12 @@
         rgba(255, 255, 255, 0.035),
         rgba(255, 255, 255, 0.012)
       );
-      transition:
-        border-color 0.2s,
-        transform 0.2s,
-        background 0.2s;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
     .feature-card:hover {
       transform: translateY(-5px);
       border-color: rgba(255, 114, 198, 0.3);
-      background: rgba(255, 114, 198, 0.035);
     }
 
     .feature-icon {
@@ -476,7 +461,7 @@
       line-height: 1.8;
     }
 
-    /* Download panel */
+    /* Download section */
 
     .download-section {
       max-width: 850px;
@@ -485,8 +470,6 @@
     }
 
     .download-panel {
-      position: relative;
-      overflow: hidden;
       padding: 50px 25px;
       text-align: center;
       border: 1px solid rgba(255, 114, 198, 0.2);
@@ -551,6 +534,7 @@
 
     .footer-note {
       text-align: right;
+      line-height: 1.7;
     }
 
     @media (max-width: 700px) {
@@ -662,8 +646,9 @@
       <div class="actions">
         <a
           class="button button-primary"
-          href="./RoseClient.exe"
-          download="RoseClient.exe"
+          href="https://drive.google.com/uc?export=download&amp;id=1PVKfBsYowZgAW1hLrhw5pwJUBwUCk2hA"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <span class="download-icon" aria-hidden="true">↓</span>
           Download for Windows
@@ -725,8 +710,8 @@
           <div class="feature-icon" aria-hidden="true">✦</div>
           <h3>Visual customization</h3>
           <p>
-            Personalize your experience with a range of visual
-            enhancements and a distinctive client theme.
+            Personalize your experience with visual enhancements
+            and a distinctive client theme.
           </p>
         </article>
 
@@ -791,8 +776,9 @@
 
         <a
           class="button button-primary"
-          href="./RoseClient.exe"
-          download="RoseClient.exe"
+          href="https://drive.google.com/uc?export=download&amp;id=1PVKfBsYowZgAW1hLrhw5pwJUBwUCk2hA"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <span class="download-icon" aria-hidden="true">↓</span>
           Download RoseClient.exe
@@ -801,7 +787,9 @@
         <div class="requirements">
           <span class="requirement">Windows</span>
           <span class="requirement">Internet connection for setup</span>
-          <span class="requirement">Java requirements depend on Minecraft version</span>
+          <span class="requirement">
+            Java requirements depend on Minecraft version
+          </span>
         </div>
       </div>
     </section>
