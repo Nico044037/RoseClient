@@ -4,14 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0c0911">
-  <title>Download RoseClient</title>
+
+  <title>RoseClient — Download</title>
+
+  <meta
+    name="description"
+    content="Download RoseClient, a custom Minecraft launcher with visual enhancements and quality-of-life features."
+  >
 
   <style>
     :root {
+      --bg: #0c0911;
+      --surface: #15101d;
       --pink: #ff78ca;
       --purple: #bd78ff;
-      --bg: #0c0911;
+      --text: #fbf5ff;
       --muted: #a99bb5;
+      --border: rgba(255, 255, 255, 0.09);
     }
 
     * {
@@ -28,11 +37,58 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      color: #fff;
+      color: var(--text);
       background:
         radial-gradient(ellipse at 50% 0%, #381b43 0%, transparent 55%),
         var(--bg);
       font-family: "Segoe UI", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .background-glow {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .glow {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.13;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .glow-one {
+      background: #f34cba;
+      top: -200px;
+      left: -150px;
+    }
+
+    .glow-two {
+      background: #873cff;
+      right: -200px;
+      top: 250px;
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(60px, 40px);
+      }
     }
 
     nav {
@@ -51,60 +107,61 @@
       gap: 10px;
       font-size: 21px;
       font-weight: 800;
-      color: white;
-      text-decoration: none;
     }
 
     .logo {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       display: grid;
       place-items: center;
       border-radius: 12px;
       background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 0 25px #ff78ca30;
     }
 
-    .brand span {
+    .brand-name span {
       color: var(--pink);
     }
 
     .nav-link {
       color: var(--muted);
       font-size: 14px;
-      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: white;
     }
 
     main {
       flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 70px 20px 100px;
+      width: 100%;
+      padding: 65px 20px 90px;
     }
 
     .hero {
-      width: 100%;
-      max-width: 760px;
+      max-width: 900px;
+      margin: 0 auto;
       text-align: center;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       padding: 9px 14px;
       margin-bottom: 28px;
       border: 1px solid #ff78ca35;
       border-radius: 100px;
       background: #ff78ca0d;
       color: #ffc4e7;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
     }
 
-    .dot {
+    .status-dot {
       width: 7px;
       height: 7px;
       background: var(--pink);
@@ -113,9 +170,9 @@
     }
 
     h1 {
-      font-size: clamp(48px, 9vw, 82px);
+      font-size: clamp(48px, 9vw, 86px);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.04;
       letter-spacing: -4px;
     }
 
@@ -127,11 +184,11 @@
     }
 
     .description {
-      max-width: 520px;
+      max-width: 570px;
       margin: 24px auto 32px;
       color: var(--muted);
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.9;
     }
 
     .download-button {
@@ -146,9 +203,10 @@
       color: #210b20;
       font-size: 16px;
       font-weight: 800;
-      text-decoration: none;
       box-shadow: 0 8px 35px #e867da25;
       transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
     }
 
     .download-button:hover {
@@ -172,19 +230,30 @@
       line-height: 1.8;
     }
 
+    .download-status {
+      min-height: 24px;
+      margin-top: 12px;
+      color: #ffc4e7;
+      font-size: 13px;
+    }
+
     .features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 65px;
+      gap: 16px;
+      margin-top: 75px;
       text-align: left;
     }
 
     .feature {
-      padding: 22px 18px;
-      border: 1px solid #ffffff12;
-      border-radius: 14px;
-      background: #ffffff05;
+      padding: 25px 21px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.035),
+        rgba(255, 255, 255, 0.012)
+      );
       transition: border-color 0.2s, transform 0.2s;
     }
 
@@ -194,36 +263,49 @@
     }
 
     .feature-icon {
-      margin-bottom: 15px;
-      font-size: 24px;
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      background: #ff78ca15;
+      font-size: 22px;
     }
 
     .feature h2 {
-      margin-bottom: 9px;
-      font-size: 14px;
+      margin-bottom: 10px;
+      font-size: 15px;
     }
 
     .feature p {
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.8;
+      line-height: 1.9;
     }
 
-    .bottom-download {
-      margin-top: 55px;
+    .bottom-section {
+      margin-top: 80px;
+      padding: 45px 22px;
+      border: 1px solid #ff78ca25;
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at top, #ff78ca12, transparent 70%),
+        var(--surface);
     }
 
-    .bottom-download h2 {
+    .bottom-section h2 {
       margin-bottom: 12px;
-      font-size: 28px;
+      font-size: clamp(26px, 5vw, 36px);
       letter-spacing: -1px;
     }
 
-    .bottom-download p {
-      margin-bottom: 24px;
+    .bottom-section p {
+      max-width: 500px;
+      margin: 0 auto 25px;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     footer {
@@ -248,22 +330,22 @@
       color: var(--pink);
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 700px) {
       h1 {
         letter-spacing: -2px;
       }
 
       main {
-        padding-top: 55px;
+        padding-top: 50px;
       }
 
       .features {
         grid-template-columns: 1fr;
-        margin-top: 50px;
+        margin-top: 55px;
       }
 
       .feature {
-        padding: 20px;
+        padding: 22px;
       }
 
       footer {
@@ -277,18 +359,24 @@
       *::before,
       *::after {
         animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
+  <div class="background-glow" aria-hidden="true">
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+  </div>
+
   <nav>
     <a class="brand" href="#" aria-label="RoseClient home">
       <div class="logo">R</div>
-      <div>Rose<span>Client</span></div>
+      <div class="brand-name">Rose<span>Client</span></div>
     </a>
 
     <a
@@ -304,7 +392,7 @@
   <main>
     <section class="hero">
       <div class="badge">
-        <span class="dot"></span>
+        <span class="status-dot"></span>
         Made for Minecraft
       </div>
 
@@ -315,12 +403,13 @@
 
       <p class="description">
         Meet RoseClient: a custom Minecraft launcher with
-        visual enhancements, useful features, and a
+        visual enhancements, convenient features, and a
         personalized pink-and-purple experience.
       </p>
 
       <a
         class="download-button"
+        id="mainDownload"
         href="https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe"
       >
         <span class="download-icon" aria-hidden="true">↓</span>
@@ -328,8 +417,11 @@
       </a>
 
       <p class="download-info">
-        Windows · .exe installer<br>
-        Hosted on GitHub Releases
+        Windows executable · Hosted on GitHub Releases
+      </p>
+
+      <p class="download-status" id="downloadStatus" aria-live="polite">
+        Your download should start automatically.
       </p>
 
       <div class="features">
@@ -337,7 +429,7 @@
           <div class="feature-icon" aria-hidden="true">✦</div>
           <h2>Visual enhancements</h2>
           <p>
-            Customize your Minecraft experience with
+            Personalize your Minecraft experience with
             visual features and a distinctive client theme.
           </p>
         </article>
@@ -346,8 +438,8 @@
           <div class="feature-icon" aria-hidden="true">▦</div>
           <h2>Mod management</h2>
           <p>
-            Organize your mods and manage your
-            Minecraft instances from the launcher.
+            Organize your mods and manage your Minecraft
+            instances from the launcher.
           </p>
         </article>
 
@@ -361,12 +453,12 @@
         </article>
       </div>
 
-      <section class="bottom-download">
+      <section class="bottom-section">
         <h2>Ready to get started?</h2>
 
         <p>
-          Download RoseClient and start setting up
-          your Minecraft experience.
+          Download RoseClient and start setting up your
+          Minecraft experience.
         </p>
 
         <a
@@ -392,8 +484,36 @@
   </footer>
 
   <script>
+    const DOWNLOAD_URL =
+      "https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe";
+
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
+    /*
+      Attempt an automatic download when the page opens.
+
+      Browsers can block automatic downloads, and the download
+      attribute cannot force a download from another domain.
+      The visible buttons provide a manual fallback.
+    */
+    window.addEventListener("load", function () {
+      const status = document.getElementById("downloadStatus");
+
+      window.setTimeout(function () {
+        const link = document.createElement("a");
+        link.href = DOWNLOAD_URL;
+        link.download = "RoseClient.exe";
+        link.style.display = "none";
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        status.textContent =
+          "If the download did not start, click the Download button above.";
+      }, 700);
+    });
   </script>
 </body>
 </html>
