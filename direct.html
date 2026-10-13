@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0c0911">
+  <title>Download RoseClient</title>
+
+  <style>
+    :root {
+      --pink: #ff78ca;
+      --purple: #bd78ff;
+      --bg: #0c0911;
+      --muted: #a99bb5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at 50% 0%, #381b43 0%, transparent 55%),
+        var(--bg);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    nav {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 800;
+      color: white;
+      text-decoration: none;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+    }
+
+    .brand span {
+      color: var(--pink);
+    }
+
+    .nav-link {
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 70px 20px 100px;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 760px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      margin-bottom: 28px;
+      border: 1px solid #ff78ca35;
+      border-radius: 100px;
+      background: #ff78ca0d;
+      color: #ffc4e7;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--pink);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--pink);
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 82px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -4px;
+    }
+
+    .gradient {
+      color: transparent;
+      background: linear-gradient(100deg, var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .description {
+      max-width: 520px;
+      margin: 24px auto 32px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .download-button {
+      min-height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 30px;
+      border-radius: 13px;
+      background: linear-gradient(110deg, var(--pink), #d29aff);
+      color: #210b20;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 8px 35px #e867da25;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .download-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px #e867da50;
+    }
+
+    .download-button:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 5px;
+    }
+
+    .download-icon {
+      font-size: 23px;
+    }
+
+    .download-info {
+      margin-top: 18px;
+      color: #897a95;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 65px;
+      text-align: left;
+    }
+
+    .feature {
+      padding: 22px 18px;
+      border: 1px solid #ffffff12;
+      border-radius: 14px;
+      background: #ffffff05;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature:hover {
+      transform: translateY(-4px);
+      border-color: #ff78ca50;
+    }
+
+    .feature-icon {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .feature h2 {
+      margin-bottom: 9px;
+      font-size: 14px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .bottom-download {
+      margin-top: 55px;
+    }
+
+    .bottom-download h2 {
+      margin-bottom: 12px;
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+
+    .bottom-download p {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    footer {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+      padding: 25px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      border-top: 1px solid #ffffff10;
+      color: #81748b;
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: #d9c9e5;
+    }
+
+    footer strong span {
+      color: var(--pink);
+    }
+
+    @media (max-width: 650px) {
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      main {
+        padding-top: 55px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+        margin-top: 50px;
+      }
+
+      .feature {
+        padding: 20px;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a class="brand" href="#" aria-label="RoseClient home">
+      <div class="logo">R</div>
+      <div>Rose<span>Client</span></div>
+    </a>
+
+    <a
+      class="nav-link"
+      href="https://github.com/Nico044037/RoseClient"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      GitHub ↗
+    </a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="badge">
+        <span class="dot"></span>
+        Made for Minecraft
+      </div>
+
+      <h1>
+        Play your way.<br>
+        <span class="gradient">Choose Rose.</span>
+      </h1>
+
+      <p class="description">
+        Meet RoseClient: a custom Minecraft launcher with
+        visual enhancements, useful features, and a
+        personalized pink-and-purple experience.
+      </p>
+
+      <a
+        class="download-button"
+        href="https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe"
+      >
+        <span class="download-icon" aria-hidden="true">↓</span>
+        Download RoseClient
+      </a>
+
+      <p class="download-info">
+        Windows · .exe installer<br>
+        Hosted on GitHub Releases
+      </p>
+
+      <div class="features">
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">✦</div>
+          <h2>Visual enhancements</h2>
+          <p>
+            Customize your Minecraft experience with
+            visual features and a distinctive client theme.
+          </p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">▦</div>
+          <h2>Mod management</h2>
+          <p>
+            Organize your mods and manage your
+            Minecraft instances from the launcher.
+          </p>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">⚙</div>
+          <h2>Quality of life</h2>
+          <p>
+            Access convenient client-side tools and
+            settings designed for everyday gameplay.
+          </p>
+        </article>
+      </div>
+
+      <section class="bottom-download">
+        <h2>Ready to get started?</h2>
+
+        <p>
+          Download RoseClient and start setting up
+          your Minecraft experience.
+        </p>
+
+        <a
+          class="download-button"
+          href="https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe"
+        >
+          <span class="download-icon" aria-hidden="true">↓</span>
+          Download RoseClient.exe
+        </a>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Rose<span>Client</span></strong>
+
+    <span>© <span id="year"></span> RoseClient</span>
+
+    <span>
+      Independent Minecraft client project.
+      Not affiliated with Mojang or Microsoft.
+    </span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
