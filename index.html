@@ -21,6 +21,7 @@
       --text: #fbf5ff;
       --muted: #a99bb5;
       --border: rgba(255, 255, 255, 0.09);
+      --download-url: "https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe";
     }
 
     * {
@@ -45,6 +46,13 @@
       color: inherit;
       text-decoration: none;
     }
+
+    a:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 5px;
+    }
+
+    /* Animated background */
 
     .background-glow {
       position: fixed;
@@ -218,6 +226,7 @@
       font-size: 15px;
       font-weight: 750;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
     }
 
     .button:hover {
@@ -267,7 +276,9 @@
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
       background: rgba(21, 16, 29, 0.9);
-      box-shadow: 0 35px 100px rgba(0, 0, 0, 0.35);
+      box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.35),
+        0 0 80px rgba(202, 100, 255, 0.06);
       transform: perspective(1200px) rotateX(2deg);
     }
 
@@ -646,9 +657,8 @@
       <div class="actions">
         <a
           class="button button-primary"
-          href="https://drive.google.com/uc?export=download&amp;id=1PVKfBsYowZgAW1hLrhw5pwJUBwUCk2hA"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe"
+          download
         >
           <span class="download-icon" aria-hidden="true">↓</span>
           Download for Windows
@@ -776,9 +786,8 @@
 
         <a
           class="button button-primary"
-          href="https://drive.google.com/uc?export=download&amp;id=1PVKfBsYowZgAW1hLrhw5pwJUBwUCk2hA"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe"
+          download
         >
           <span class="download-icon" aria-hidden="true">↓</span>
           Download RoseClient.exe
