@@ -6,7 +6,6 @@
   <meta name="theme-color" content="#0c0911">
 
   <title>RoseClient — Download</title>
-
   <meta
     name="description"
     content="Download RoseClient, a custom Minecraft launcher with visual enhancements and quality-of-life features."
@@ -359,9 +358,8 @@
       *::before,
       *::after {
         animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
@@ -421,7 +419,7 @@
       </p>
 
       <p class="download-status" id="downloadStatus" aria-live="polite">
-        Your download should start automatically.
+        Starting your download...
       </p>
 
       <div class="features">
@@ -487,32 +485,31 @@
     const DOWNLOAD_URL =
       "https://github.com/Nico044037/RoseClient/releases/download/Client/RoseClient.exe";
 
+    const WEBSITE_URL = "https://roseclient.mxservers.online";
+
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-    /*
-      Attempt an automatic download when the page opens.
-
-      Browsers can block automatic downloads, and the download
-      attribute cannot force a download from another domain.
-      The visible buttons provide a manual fallback.
-    */
     window.addEventListener("load", function () {
       const status = document.getElementById("downloadStatus");
 
+      // Attempt to start the download.
+      const link = document.createElement("a");
+      link.href = DOWNLOAD_URL;
+      link.download = "RoseClient.exe";
+      link.style.display = "none";
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      status.textContent =
+        "Your download should start. Redirecting to RoseClient...";
+
+      // Redirect after three seconds.
       window.setTimeout(function () {
-        const link = document.createElement("a");
-        link.href = DOWNLOAD_URL;
-        link.download = "RoseClient.exe";
-        link.style.display = "none";
-
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-
-        status.textContent =
-          "If the download did not start, click the Download button above.";
-      }, 700);
+        window.location.href = WEBSITE_URL;
+      }, 3000);
     });
   </script>
 </body>
