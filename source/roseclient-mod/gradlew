@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+set -eu
+GRADLE_VERSION=9.4.0
+BOOTSTRAP_DIR="${HOME}/.gradle/roseclient-bootstrap"
+GRADLE_HOME="${BOOTSTRAP_DIR}/gradle-${GRADLE_VERSION}"
+ZIP="${TMPDIR:-/tmp}/roseclient-gradle-${GRADLE_VERSION}-bin.zip"
+if [ ! -x "${GRADLE_HOME}/bin/gradle" ]; then
+  mkdir -p "${BOOTSTRAP_DIR}"
+  curl -fL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o "${ZIP}"
+  unzip -oq "${ZIP}" -d "${BOOTSTRAP_DIR}"
+fi
+exec "${GRADLE_HOME}/bin/gradle" "$@"

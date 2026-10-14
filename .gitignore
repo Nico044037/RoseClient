@@ -1,0 +1,4 @@
+source/node_modules/
+source/roseclient-mod/.gradle/
+source/roseclient-mod/build/
+source/release/win-unpacked/

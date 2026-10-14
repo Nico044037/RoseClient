@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0c0911">
+
+  <title>RoseClient — A Better Minecraft Experience</title>
+
+  <meta
+    name="description"
+    content="Download RoseClient, a Minecraft client with a custom launcher, visual enhancements, and quality-of-life features."
+  >
+
+  <style>
+    :root {
+      --background: #0c0911;
+      --surface: #15101d;
+      --pink: #ff72c6;
+      --purple: #bd73ff;
+      --text: #fbf5ff;
+      --muted: #a99bb5;
+      --border: rgba(255, 255, 255, 0.09);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--background);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .background-glow {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.14;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .glow-one {
+      background: #f34cba;
+      top: -250px;
+      left: -150px;
+    }
+
+    .glow-two {
+      background: #873cff;
+      right: -250px;
+      top: 200px;
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      from {
+        transform: translate(0, 0);
+      }
+
+      to {
+        transform: translate(70px, 50px);
+      }
+    }
+
+    /* Navigation */
+
+    nav {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      font-size: 22px;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 0 25px rgba(255, 114, 198, 0.2);
+    }
+
+    .brand span {
+      color: var(--pink);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-download {
+      color: white !important;
+      padding: 11px 17px;
+      border-radius: 10px;
+      background: rgba(255, 114, 198, 0.1);
+      border: 1px solid rgba(255, 114, 198, 0.25);
+    }
+
+    /* Hero */
+
+    .hero {
+      max-width: 1000px;
+      margin: auto;
+      padding: 115px 24px 90px;
+      text-align: center;
+    }
+
+    .announcement {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 14px;
+      margin-bottom: 27px;
+      color: #ffc5e8;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 114, 198, 0.2);
+      border-radius: 100px;
+      background: rgba(255, 114, 198, 0.06);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff80cd;
+      box-shadow: 0 0 12px #ff80cd;
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 88px);
+      line-height: 1.03;
+      letter-spacing: -5px;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(100deg, #ff8bd6, #d59aff 65%, #a68aff);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-description {
+      max-width: 580px;
+      margin: 25px auto 32px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      min-height: 52px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 0 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 750;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button-primary {
+      color: #210b20;
+      background: linear-gradient(110deg, #ff8bd6, #d29aff);
+      box-shadow: 0 8px 35px rgba(232, 103, 218, 0.17);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 12px 40px rgba(232, 103, 218, 0.32);
+    }
+
+    .button-secondary {
+      color: white;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+    }
+
+    .button-secondary:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .download-icon {
+      font-size: 20px;
+    }
+
+    .download-note {
+      margin-top: 19px;
+      color: #81748b;
+      font-size: 12px;
+    }
+
+    /* Launcher preview */
+
+    .preview {
+      max-width: 900px;
+      margin: 0 auto 110px;
+      padding: 0 24px;
+    }
+
+    .preview-window {
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(21, 16, 29, 0.9);
+      box-shadow: 0 35px 100px rgba(0, 0, 0, 0.35);
+      transform: perspective(1200px) rotateX(2deg);
+    }
+
+    .window-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 7px 17px;
+    }
+
+    .window-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ff83ca;
+    }
+
+    .window-dot:nth-child(2) {
+      background: #d18bff;
+    }
+
+    .window-dot:nth-child(3) {
+      background: #a68aff;
+    }
+
+    .window-title {
+      flex: 1;
+      text-align: center;
+      padding-right: 30px;
+      color: #83758e;
+      font-size: 11px;
+    }
+
+    .mock-app {
+      min-height: 310px;
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      overflow: hidden;
+      border-radius: 10px;
+      background:
+        radial-gradient(ellipse at 80% 30%, rgba(188, 86, 220, 0.13), transparent 45%),
+        #100c17;
+    }
+
+    .mock-sidebar {
+      padding: 24px 15px;
+      border-right: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .mock-logo {
+      margin-bottom: 30px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .mock-logo span {
+      color: var(--pink);
+    }
+
+    .mock-nav-item {
+      padding: 12px;
+      margin-bottom: 7px;
+      border-radius: 8px;
+      color: #a99bb5;
+      font-size: 12px;
+    }
+
+    .mock-nav-item.active {
+      color: #ffc5e8;
+      background: rgba(255, 114, 198, 0.11);
+      border: 1px solid rgba(255, 114, 198, 0.12);
+    }
+
+    .mock-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 35px;
+    }
+
+    .mock-label {
+      margin-bottom: 12px;
+      color: #ff8bd6;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .mock-content h2 {
+      font-size: clamp(24px, 4vw, 40px);
+      letter-spacing: -1px;
+    }
+
+    .mock-content p {
+      max-width: 350px;
+      margin-top: 12px;
+      color: #9c8da8;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .mock-button {
+      align-self: flex-start;
+      margin-top: 24px;
+      padding: 12px 19px;
+      border-radius: 8px;
+      color: #260d23;
+      background: linear-gradient(110deg, #ff8bd6, #d29aff);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* Features */
+
+    .section {
+      max-width: 1050px;
+      margin: auto;
+      padding: 0 24px 110px;
+    }
+
+    .section-heading {
+      margin-bottom: 42px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 13px;
+      color: var(--pink);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 5vw, 43px);
+      letter-spacing: -1.5px;
+    }
+
+    .section-heading p {
+      max-width: 520px;
+      margin: 15px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .feature-card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.035),
+        rgba(255, 255, 255, 0.012)
+      );
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 114, 198, 0.3);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: rgba(255, 114, 198, 0.1);
+      font-size: 21px;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Download section */
+
+    .download-section {
+      max-width: 850px;
+      margin: 0 auto 100px;
+      padding: 0 24px;
+    }
+
+    .download-panel {
+      padding: 50px 25px;
+      text-align: center;
+      border: 1px solid rgba(255, 114, 198, 0.2);
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at top, rgba(255, 114, 198, 0.1), transparent 70%),
+        var(--surface);
+    }
+
+    .download-panel h2 {
+      margin-bottom: 12px;
+      font-size: clamp(27px, 5vw, 38px);
+      letter-spacing: -1px;
+    }
+
+    .download-panel p {
+      margin-bottom: 25px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .requirements {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 23px;
+    }
+
+    .requirement {
+      padding: 8px 12px;
+      color: #b9a9c5;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    /* Footer */
+
+    footer {
+      max-width: 1200px;
+      margin: auto;
+      padding: 27px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border-top: 1px solid var(--border);
+      color: #81748b;
+      font-size: 12px;
+    }
+
+    .footer-brand {
+      color: #d9c9e5;
+      font-weight: 750;
+    }
+
+    .footer-brand span {
+      color: var(--pink);
+    }
+
+    .footer-note {
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        padding: 18px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a:not(.nav-download) {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 85px;
+      }
+
+      h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      .mock-app {
+        grid-template-columns: 125px 1fr;
+        min-height: 270px;
+      }
+
+      .mock-sidebar {
+        padding: 18px 9px;
+      }
+
+      .mock-content {
+        padding: 20px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        padding: 23px;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-note {
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-glow" aria-hidden="true">
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+  </div>
+
+  <nav>
+    <a href="#" class="brand" aria-label="RoseClient home">
+      <div class="brand-icon">R</div>
+      <div>Rose<span>Client</span></div>
+    </a>
+
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#download" class="nav-download">Download</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero" id="about">
+      <div class="announcement">
+        <span class="status-dot"></span>
+        Your Minecraft experience, upgraded
+      </div>
+
+      <h1>
+        Play your way.<br>
+        <span class="gradient-text">Choose Rose.</span>
+      </h1>
+
+      <p class="hero-description">
+        Meet RoseClient: a custom Minecraft launcher built around
+        visual enhancements, convenient features, and a clean,
+        personalized experience.
+      </p>
+
+      <div class="actions">
+        <a
+          class="button button-primary"
+          href="https://drive.google.com/uc?export=download&amp;id=1PVKfBsYowZgAW1hLrhw5pwJUBwUCk2hA"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="download-icon" aria-hidden="true">↓</span>
+          Download for Windows
+        </a>
+
+        <a class="button button-secondary" href="#features">
+          Explore features <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <p class="download-note">
+        Windows installer · Check the release notes for version details
+      </p>
+    </section>
+
+    <section class="preview" aria-label="RoseClient launcher preview">
+      <div class="preview-window">
+        <div class="window-bar">
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-dot"></span>
+          <span class="window-title">RoseClient Launcher</span>
+        </div>
+
+        <div class="mock-app">
+          <aside class="mock-sidebar">
+            <div class="mock-logo">Rose<span>Client</span></div>
+            <div class="mock-nav-item active">⌂ &nbsp; Home</div>
+            <div class="mock-nav-item">◇ &nbsp; Instances</div>
+            <div class="mock-nav-item">▦ &nbsp; Mod Browser</div>
+            <div class="mock-nav-item">⚙ &nbsp; Settings</div>
+          </aside>
+
+          <div class="mock-content">
+            <div class="mock-label">WELCOME TO ROSECLIENT</div>
+            <h2>Your next adventure<br>starts here.</h2>
+            <p>
+              Your launcher. Your setup. Your Minecraft experience.
+              Everything starts in one place.
+            </p>
+            <div class="mock-button">PLAY MINECRAFT →</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-heading">
+        <div class="eyebrow">Made for your game</div>
+        <h2>A client that feels like yours.</h2>
+        <p>
+          A simple launcher experience with tools designed to make
+          managing and customizing Minecraft more convenient.
+        </p>
+      </div>
+
+      <div class="features">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">✦</div>
+          <h3>Visual customization</h3>
+          <p>
+            Personalize your experience with visual enhancements
+            and a distinctive client theme.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">▦</div>
+          <h3>Mod management</h3>
+          <p>
+            Keep track of your instance mods and make your
+            Minecraft setup easier to manage.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">⚙</div>
+          <h3>Quality of life</h3>
+          <p>
+            Access convenient client-side tools and settings
+            built to simplify everyday gameplay.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">◈</div>
+          <h3>Custom launcher</h3>
+          <p>
+            Manage your Minecraft setup from a dedicated
+            desktop launcher with a cohesive interface.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">☷</div>
+          <h3>Launch logs</h3>
+          <p>
+            Review available launch output when troubleshooting
+            Minecraft startup problems.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">♡</div>
+          <h3>Rose-inspired design</h3>
+          <p>
+            A pink-and-purple interface designed to make the
+            launcher feel unique from the moment you open it.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="download-section" id="download">
+      <div class="download-panel">
+        <div class="eyebrow">Ready when you are</div>
+
+        <h2>Make Minecraft yours.</h2>
+
+        <p>
+          Download RoseClient for Windows and get started.
+          Make sure your PC meets the requirements for your
+          Minecraft version.
+        </p>
+
+        <a
+          class="button button-primary"
+          href="https://drive.google.com/uc?export=download&amp;id=1PVKfBsYowZgAW1hLrhw5pwJUBwUCk2hA"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="download-icon" aria-hidden="true">↓</span>
+          Download RoseClient.exe
+        </a>
+
+        <div class="requirements">
+          <span class="requirement">Windows</span>
+          <span class="requirement">Internet connection for setup</span>
+          <span class="requirement">
+            Java requirements depend on Minecraft version
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">Rose<span>Client</span></div>
+
+    <div>© <span id="year"></span> RoseClient</div>
+
+    <div class="footer-note">
+      Minecraft is a trademark of Microsoft/Mojang.<br>
+      RoseClient is an independent project.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

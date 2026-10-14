@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "roseclient",
+  "version": "1.0.0",
+  "name": "RoseClient",
+  "description": "RoseClient in-game HUD and owner identity features.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.roseclient.mod.RoseClientMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "26.1.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

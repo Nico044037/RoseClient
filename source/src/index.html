@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self'; script-src 'self'; connect-src https://api.modrinth.com;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoseClient</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="rose">✿</div><div><h1>RoseClient</h1><span>MODERN MINECRAFT CLIENT</span></div></div>
+    <div class="nav-label">LIBRARY</div>
+    <button class="nav active" data-page="home">◈ <span>Overview</span></button>
+    <button class="nav" data-page="instances">▦ <span>Instances</span></button>
+    <button class="nav" data-page="mods">✧ <span>Modrinth Mods</span></button>
+    <button class="nav" data-page="settings">⚙ <span>Settings & folders</span></button>
+    <div class="sidebar-bottom"><div class="avatar">R</div><div><strong>RoseClient</strong><small>Local profile</small></div><span class="dot"></span></div>
+  </aside>
+  <main class="main">
+    <header><div><span class="eyebrow">YOUR MINECRAFT, YOUR WAY</span><h2 id="pageTitle">Welcome to RoseClient</h2></div><div class="header-right"><span class="pill">● Client ready</span><button class="ghost" id="refreshBtn">Refresh</button></div></header>
+    <section id="notice" class="notice hidden"></section>
+    <section id="homePage" class="page">
+      <div class="hero">
+        <div class="hero-copy"><span class="eyebrow pink">PERSONAL CLIENT</span><h3>Make Minecraft<br><em>feel like yours.</em></h3><p>Manage instances and find compatible mods from Modrinth in one place.</p><div class="hero-actions"><button class="primary" id="heroStart">▶ Start Minecraft</button><button class="danger" id="heroStop" disabled>■ Stop Minecraft</button><button class="ghost" id="heroBrowse">Browse mods <span>→</span></button></div><p class="game-status-line" id="heroGameStatus" role="status">Minecraft is not running.</p></div>
+        <div class="hero-art"><div class="orb">✿</div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="spark s1">✦</div><div class="spark s2">✧</div></div>
+      </div>
+      <div class="section-heading"><div><span class="eyebrow">QUICK ACCESS</span><h3>Your workspace</h3></div></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-icon">▦</div><span>INSTANCES</span><strong id="instanceCount">0</strong><small>Separate game setups</small></div>
+        <div class="stat"><div class="stat-icon">✧</div><span>MOD DISCOVERY</span><strong>Modrinth</strong><small>Version-filtered results</small></div>
+        <div class="stat"><div class="stat-icon">♧</div><span>OWNER</span><strong>AvoidMyNicoYT</strong><small>Rainbow owner nametag in client mod</small></div>
+      </div>
+      <div class="callout"><div class="callout-icon">ⓘ</div><div><strong>Launch from RoseClient</strong><p>Select a Fabric instance and press Start Minecraft. On first launch RoseClient installs Fabric, asks you to sign in with your Microsoft account, and downloads the game files into that instance. Launching requires a Java 25+ runtime and a Minecraft: Java Edition account.</p></div></div>
+    </section>
+    <section id="instancesPage" class="page hidden">
+      <div class="section-heading"><div><span class="eyebrow">GAME PROFILES</span><h3>Your instances</h3><p>Each instance has its own mods and config folders.</p></div><div class="instance-import-actions"><button class="ghost" id="importModrinthProfilesBtn">↗ Import Modrinth instances</button><button class="ghost" id="importMrpackBtn">✿ Import .mrpack</button><button class="primary" id="createInstanceBtn">＋ New instance</button></div></div>
+      <div id="instancesList" class="instance-list"></div>
+      <div class="empty hidden" id="instancesEmpty"><div class="empty-icon">▦</div><h3>No instances yet</h3><p>Create an instance to start building your mod collection.</p><button class="primary" id="emptyCreateBtn">Create instance</button></div>
+    </section>
+    <section id="modsPage" class="page hidden">
+      <div class="section-heading"><div><span class="eyebrow">MOD DISCOVERY</span><h3>Find your next mod</h3><p>Results are filtered to the selected instance's Minecraft version and loader.</p></div></div>
+      <div class="filterbar"><input id="modSearch" placeholder="Search Modrinth mods…" autocomplete="off"><button class="primary" id="searchBtn">Search</button></div>
+      <div class="filterrow"><label>Install into <select id="targetInstance"></select></label><span id="compatLabel" class="muted"></span></div>
+      <div id="modsGrid" class="mods-grid"></div>
+      <div class="section-heading inventory-heading"><div><span class="eyebrow">LOCAL MODS FOLDER</span><h3>Mods in this instance <span id="installedModsCount" class="count-badge">0</span></h3><p id="installedModsPath">Select an instance to scan its mods folder.</p></div><button class="ghost" id="refreshInstalledMods">↻ Scan mods folder</button></div>
+      <div id="installedModsGrid" class="installed-mods-grid"></div>
+      <div id="installedModsEmpty" class="empty hidden"><div class="empty-icon">▦</div><h3>No JAR mods found</h3><p>This instance's mods folder is empty. Install mods from Modrinth or add compatible JAR files manually.</p></div>
+      <div id="modsEmpty" class="empty"><div class="empty-icon">✧</div><h3>Search Modrinth</h3><p>Search for performance, HUD, visuals, or other mods.</p></div>
+    </section>
+    <section id="settingsPage" class="page hidden">
+      <div class="section-heading"><div><span class="eyebrow">LOCAL DATA</span><h3>Settings & folders</h3><p>RoseClient keeps its local data under your operating system's app-data directory.</p></div></div>
+      <div class="folder-card"><div class="folder-symbol">▣</div><div class="folder-info"><strong>Application data</strong><code id="dataPath">Loading…</code></div><button class="ghost" data-open="data">Open folder</button></div>
+      <div class="folder-card"><div class="folder-symbol">▦</div><div class="folder-info"><strong>Instances</strong><code id="instancesPath">Loading…</code></div><button class="ghost" data-open="instances">Open folder</button></div>
+      <div class="folder-card"><div class="folder-symbol">♙</div><div class="folder-info"><strong>Microsoft account</strong><code id="accountStatus">Checking saved login…</code><small id="accountHelp">RoseClient remembers your sign-in securely when OS secure storage is available.</small><code id="loginPath">Loading…</code></div><button class="ghost" id="forgetLogin">Log out</button><button class="ghost" data-open="login">Open folder</button></div>
+      <div class="callout"><div class="callout-icon">✿</div><div><strong>Client-side only</strong><p>RoseClient installs as a client-only Fabric mod. No server companion is included or required for its local HUD and visual modules. A rose marker identifying other RoseClient users cannot be verified from the client alone, so that feature is not included.</p></div></div>
+      <div class="callout"><div class="callout-icon">♢</div><div><strong>Account security</strong><p>RoseClient encrypts saved authentication data with OS-backed secure storage. It never saves your Microsoft password. Use Log out to remove the saved login.</p></div></div>
+    </section>
+    <footer><span>ROSECLIENT <b>●</b> LOCAL BUILD</span><span>Made for your setup</span></footer>
+  </main>
+  <dialog id="instanceDialog"><form method="dialog" id="instanceForm"><div class="dialog-head"><div><span class="eyebrow">NEW PROFILE</span><h3>Create instance</h3></div><button class="close" value="cancel">×</button></div><label>Instance name<input id="instanceName" required maxlength="48" placeholder="e.g. PvP 26.1.2"></label><div class="form-row"><label>Minecraft version<input id="mcVersion" required value="26.1.2"></label><label>Mod loader<select id="loader"><option value="fabric">Fabric (recommended)</option></select></label></div><p class="hint">Fabric instances are prepared and launched by RoseClient. First launch downloads the required Minecraft files. Direct launch currently supports Fabric only. Minecraft 26.1.2 requires Java 25 or newer.</p><div class="dialog-actions"><button class="ghost" value="cancel">Cancel</button><button class="primary" id="saveInstance" value="default">Create instance</button></div></form></dialog>
+  <script src="renderer.js"></script>
+</body>
+</html>
